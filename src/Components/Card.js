@@ -10,7 +10,7 @@ const Card = ({ title, description, imageSrc }) => {
   return (
     <Stack
       align="start"
-      spacing={8}
+      spacing={4}
       bg="#EDEFEE"
       borderRadius="md"
       overflow="hidden"
@@ -23,10 +23,10 @@ const Card = ({ title, description, imageSrc }) => {
         
         <Text fontSize="sm" color="black">{description}</Text>
 
-        <HStack spacing={3}>
-          <Text color="black" fontWeight="bold">
+        <HStack spacing={4}>
+          <Text color="black" fontWeight="bold" >
             See more
-           <FontAwesomeIcon icon={faArrowRight} size="1x"/>
+           <FontAwesomeIcon icon={faArrowRight} size="1l"/>
           </Text>
           
         </HStack>

@@ -69,11 +69,11 @@ const Specials = [
   {
     title: "Bruchetta",
     description:
-      "Our bruchetta is made from grilled bread that has been smered with garlic",
+      "Our bruchetta is made from grilled bread that has been smered with garlic.",
     imageSrc: bruchetta,
   },
   {
-    title: "Lemon Desert",
+    title: "Lemon Desert.",
     description:
       "This comes straight from grandma's recipe book.",
     imageSrc:lemondessert,

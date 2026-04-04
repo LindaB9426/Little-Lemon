@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import {
   Box,
   Button,
-  Center,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -11,11 +10,12 @@ import {
   Input,
   Select,
   VStack,
+  Flex
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
-
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
+
 const times = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
 
 const Reservation = () => {
@@ -27,14 +27,21 @@ const Reservation = () => {
       firstName: "",
       email: "",
       type: "",
-      comment: "",
+      time: "",
+      date: "",
+      guests: "",
     },
     
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       type: Yup.string().required("Required"),
-      comment: Yup.string() .required("Required"),
+      time: Yup.string() .required("Required"),
+      date: Yup.string() .required("Required"),
+      guests: Yup.number()
+        .min (1, "Min 1 guest")
+        .max (10, "Max 10 guests")
+      .required("Required"),
     }),
   
     onSubmit: (values) => {
@@ -119,44 +126,34 @@ const Reservation = () => {
                 isInvalid={formik.touched.time && formik.errors.time}
                 >
                 <FormLabel htmlFor="guests">Choose time</FormLabel>
-                <Select
-                  id="time"
-                  name="time" 
-                  {...formik.getFieldProps("time")}
-                  >
-                  <option value="">Select time</option>
-                     {times.map((t) => (
-                      <option key={t} value={t}>
-                    {t}
-                    </option>
+                <Flex gap={2} wrap="wrap">
+                  {times.map((time) => (
+                    <Button
+                      key={time}
+                      onClick={() => formik.setFieldValue("time", time)}
+                      variant={formik.values.time === time ? "solid" : "outline"}
+                      colorScheme="#495E57"
+                    >
+                      {time}
+                    </Button>
                     ))}
-                </Select>
+                </Flex>
                 <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
               </FormControl>
               <FormControl
                 isInvalid={formik.touched.type && formik.errors.type}
                 >
                 <FormControl
-               isInvalid={formik.touched.date && formik.errors.date}
-               >
-                <FormLabel htmlFor="date">Choose date</FormLabel>
-                <Input
-                  id="date"
-                  {...formik.getFieldProps("date")} />
-                <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
+                  isInvalid={formik.touched.date && formik.errors.date}
+                >
+                  <FormLabel>Date</FormLabel>
+                  <Input
+                    type="date"
+                    {...formik.getFieldProps("date")}
+                  />
+                  <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl>
-                <FormLabel htmlFor="occasion">Occasion</FormLabel>
-                <Select
-                  id="occasion"
-                  name="occasion" 
-                  {...formik.getFieldProps("occasion")}>
-                  <option value="hireMe">Occasion</option>
-                  <option value="Birthday">
-                    Birthday
-                  </option>
-                  <option value="Anniversary">Anniversary</option>
-                </Select>
-                <FormErrorMessage>{formik.errors.occasion}</FormErrorMessage>
+                
               </FormControl>
               
               <Button 
