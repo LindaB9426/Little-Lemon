@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {initializeTimes} from './Main';
+import {initializeTimes, updateTimes} from './Main';
 
 describe('initializeTimes', () => {
   test('returns the correct default times', () => {
