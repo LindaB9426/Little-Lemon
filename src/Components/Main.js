@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import Reservation from "./Reservation";
-import { fetchAPI } from "./Api";
+import { fetchAPI } from "../Api"
 
 export const initializeTimes = () => {
   return fetchAPI(new Date());

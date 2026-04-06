@@ -1,19 +1,31 @@
 import React from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading,Flex} from "@chakra-ui/react";
 
 const Login = () => {
   return (
     <Box
-      id="login-section"
-      minH="100vh"
-      pt="120px"   
+      id="about-section"
+      minH="auto"
+      pt="10px"
       bg="gray.100"
+      px={8}
+      backgroundColor="white"
+      scrollMarginTop="80px"
+      justifyContent="center"
+      display="flex"
+            
+           
     >
-      <Heading textAlign="center">
-        Yes
+      <Flex      
+        height="600px"  
+         bg="#495E57" 
+      >
+      <Heading size="xl" textAlign="center" mb={8} color="white" p={8}>
+        Please login
       </Heading>
+      </Flex>
     </Box>
   );
 };
 
-export default Login;
+export default Login; 

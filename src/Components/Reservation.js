@@ -35,8 +35,7 @@ const Reservation = ({ availableTimes, dispatch }) => {
     
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
-      email: Yup.string().email("Invalid email address").required("Required"),
-      type: Yup.string().required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),   
       time: Yup.string() .required("Required"),
       date: Yup.string() .required("Required"),
       guests: Yup.number()
@@ -46,6 +45,7 @@ const Reservation = ({ availableTimes, dispatch }) => {
     }),
   
     onSubmit: (values) => {
+      console.log("submit strada", values);
       submit(values);
       },
   });    
@@ -57,7 +57,7 @@ const Reservation = ({ availableTimes, dispatch }) => {
           type: "success",
           message: `Thank you ${formik.values.firstName}, your form was submitted successfully!`,
         });
-        formik.resetForm(); 
+        formik.resetForm();
       } else if (response.type === "error") {
         onOpen({
           type: "error",
@@ -65,7 +65,7 @@ const Reservation = ({ availableTimes, dispatch }) => {
         });
       }
     }
-  }, [response, onOpen, formik]);
+  }, [response]);
 
 
   return (

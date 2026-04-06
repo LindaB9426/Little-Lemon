@@ -84,7 +84,6 @@ const SpecialsSection = () => {
   return (
     <Box
       backgroundColor="white"
-      isDarkBackground
       p={8}
       alignItems="flex-start"
       spacing={8}
