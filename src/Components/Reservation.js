@@ -16,9 +16,10 @@ import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
 
-const times = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
 
-const Reservation = () => {
+
+
+const Reservation = ({ availableTimes, dispatch }) => {
   const {isLoading, response, submit} = useSubmit();
   const { onOpen } = useAlertContext();
 
@@ -70,19 +71,23 @@ const Reservation = () => {
   return (
     <Box
       id="reservation-section"
-      minH="80vh"
+      minH="auto"
+      
+      pt="10px"
+      px={8}
       bg="gray.100"
-      px={400}
-      backgroundColor="white"
+      backgroundColor="#495E57"
       scrollMarginTop="80px"
+      justifyContent="center"
+      display="flex"
     >
-      <VStack w="800px" alignItems="flex-start">
-        <Heading as="h1" id="contactme-section">
+      <VStack w="500px"  >
+        <Heading as="h1" color="white" >
           Reserve a table
         </Heading>
         <Box p={6} rounded="md" w="100%">
           <form onSubmit={formik.handleSubmit}> 
-            <VStack spacing={4}>
+            <VStack spacing={4} color="white">
               <FormControl
                isInvalid={formik.touched.firstName && formik.errors.firstName}
                >
@@ -107,40 +112,23 @@ const Reservation = () => {
               <FormControl
                 isInvalid={formik.touched.guests && formik.errors.guests}
                 >
-                <FormLabel htmlFor="guests">Number of guests</FormLabel>
+                <FormLabel htmlFor="guests" >Number of guests</FormLabel>
                 <Select
                   id="guests"
                   name="guests" 
+                  color="black"
                   {...formik.getFieldProps("guests")}
                   >
-                  <option value="">Select guests</option>
+                  <option value="" >Select guests</option>
                     {[...Array(10)].map((_, i) => (
-                    <option key={i + 1} value={i + 1}>
+                    <option key={i + 1} value={i + 1} >
                     {i + 1}
                     </option>
                     ))}
                 </Select>
                 <FormErrorMessage>{formik.errors.guests}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={formik.touched.time && formik.errors.time}
-                >
-                <FormLabel htmlFor="guests">Choose time</FormLabel>
-                <Flex gap={2} wrap="wrap">
-                  {times.map((time) => (
-                    <Button
-                      key={time}
-                      onClick={() => formik.setFieldValue("time", time)}
-                      variant={formik.values.time === time ? "solid" : "outline"}
-                      colorScheme="#495E57"
-                    >
-                      {time}
-                    </Button>
-                    ))}
-                </Flex>
-                <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
-              </FormControl>
-              <FormControl
+               <FormControl
                 isInvalid={formik.touched.type && formik.errors.type}
                 >
                 <FormControl
@@ -149,16 +137,40 @@ const Reservation = () => {
                   <FormLabel>Date</FormLabel>
                   <Input
                     type="date"
+                    color="black"
                     {...formik.getFieldProps("date")}
+                    onChange={(e) => {
+                      formik.handleChange(e);
+                      dispatch(e.target.value);
+                    }}
                   />
                   <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl>
                 
               </FormControl>
+              <FormControl
+                isInvalid={formik.touched.time && formik.errors.time}
+                >
+                <FormLabel htmlFor="guests">Choose time</FormLabel>
+                <Flex gap={2} wrap="wrap" >
+                  {availableTimes.map((time) => (
+                    <Button
+                      key={time}
+                      onClick={() => formik.setFieldValue("time", time)}
+                      variant={formik.values.time === time ? "solid" : "outline"}
+                      colorScheme="yellow"
+                    >
+                      {time}
+                    </Button>
+                    ))}
+                </Flex>
+                <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
+              </FormControl>
+             
               
               <Button 
                 type="submit"
-                bg="#495E57" 
+                bg="#f4ce14" 
                 width={160}
                 isLoading={isLoading}
               >

@@ -14,6 +14,7 @@ import Alert from "./Components/Alert";
 
 
 
+
 function App() {
   return (
     
@@ -24,9 +25,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/about" element={<About/>} />
-              <Route path="/reservation" element={<Reservation/>} />
+              
               <Route path="/order" element={<Order/>} />
               <Route path="/login" element={<Login/>} />
+              <Route path="/reservation" element={<Main />} />
               
             </Routes>
           </Box> 
