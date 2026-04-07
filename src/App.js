@@ -11,7 +11,7 @@ import Reservation from "./Components/Reservation";
 import Main from "./Components/Main";
 import { AlertProvider } from "./context/alertContext";
 import Alert from "./Components/Alert";
-
+import ConfirmedBooking from "./Components/ConfirmedBooking";
 
 
 
@@ -25,11 +25,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/about" element={<About/>} />
-              
               <Route path="/order" element={<Order/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/reservation" element={<Main />} />
-              
+              <Route path="/confirmed" element={<ConfirmedBooking />} />
             </Routes>
           </Box> 
         

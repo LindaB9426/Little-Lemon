@@ -19,10 +19,10 @@ import {useAlertContext} from "../context/alertContext";
 
 
 
-const Reservation = ({ availableTimes, dispatch }) => {
-  const {isLoading, response, submit} = useSubmit();
+const Reservation = ({ availableTimes, dispatch, submitForm }) => {
   const { onOpen } = useAlertContext();
-
+  const [bookings, setBookings] = React.useState([]);
+  
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -43,30 +43,17 @@ const Reservation = ({ availableTimes, dispatch }) => {
         .max (10, "Max 10 guests")
       .required("Required"),
     }),
-  
+    
     onSubmit: (values) => {
-      console.log("submit strada", values);
-      submit(values);
-      },
-  });    
-
-  useEffect(() => {
-    if (response) {
-      if (response.type === "success") {
-        onOpen({
+      submitForm(values);
+      setBookings((prev) => [...prev, values]);
+      onOpen({
           type: "success",
-          message: `Thank you ${formik.values.firstName}, your form was submitted successfully!`,
+          message: `Thank you ${values.firstName}, your form was submitted successfully!`,
         });
         formik.resetForm();
-      } else if (response.type === "error") {
-        onOpen({
-          type: "error",
-          message: `Oops! Something went wrong: ${response.message}`,
-        });
-      }
-    }
-  }, [response]);
-
+    },
+  });
 
   return (
     <Box
@@ -172,13 +159,39 @@ const Reservation = ({ availableTimes, dispatch }) => {
                 type="submit"
                 bg="#f4ce14" 
                 width={160}
-                isLoading={isLoading}
+                
               >
                 Submit
               </Button>
             </VStack>
           </form>
         </Box>
+        <Box mt={10} bg="white" p={4}>
+          <Heading size="md">Bookings</Heading>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Guests</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((b, index) => (
+                <tr key={index}>
+                  <td>{b.firstName}</td>
+                  <td>{b.email}</td>
+                  <td>{b.date}</td>
+                  <td>{b.time}</td>
+                  <td>{b.guests}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Box>
+
       </VStack>
     </Box>
   );
