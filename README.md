@@ -29,4 +29,4 @@ This is a React web application for booking restaurant tables. Users can select 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/LindaB9426/Little-Lemon.git>
