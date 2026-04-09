@@ -10,7 +10,8 @@ import {
   Input,
   Select,
   VStack,
-  Flex
+  Flex,
+ime,
 } from "@chakra-ui/react";
 import * as Yup from 'yup';
 import useSubmit from "../hooks/useSubmit";
@@ -21,7 +22,10 @@ import {useAlertContext} from "../context/alertContext";
 
 const Reservation = ({ availableTimes, dispatch, submitForm }) => {
   const { onOpen } = useAlertContext();
-  const [bookings, setBookings] = React.useState([]);
+  const [bookings, setBookings] = React.useState(() => {
+  const saved = localStorage.getItem("bookings");
+  return saved ? JSON.parse(saved) : [];
+});
   
   const formik = useFormik({
     initialValues: {
@@ -46,7 +50,11 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
     
     onSubmit: (values) => {
       submitForm(values);
-      setBookings((prev) => [...prev, values]);
+      setBookings((prev) => {
+      const updated = [...prev, values];
+        localStorage.setItem("bookings", JSON.stringify(updated)); // 🔥
+        return updated;
+      });
       onOpen({
           type: "success",
           message: `Thank you ${values.firstName}, your form was submitted successfully!`,
@@ -81,6 +89,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   id="firstName"
+                  required
                   {...formik.getFieldProps("firstName")} />
                 <FormErrorMessage>{formik.errors.firstName}</FormErrorMessage>
               </FormControl>
@@ -92,6 +101,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                   id="email"
                   name="email"
                   type="email"
+                  required
                   {...formik.getFieldProps("email")}
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
@@ -104,6 +114,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                   id="guests"
                   name="guests" 
                   color="black"
+                  required
                   {...formik.getFieldProps("guests")}
                   >
                   <option value="" >Select guests</option>
@@ -115,7 +126,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                 </Select>
                 <FormErrorMessage>{formik.errors.guests}</FormErrorMessage>
               </FormControl>
-               <FormControl
+              <FormControl
                 isInvalid={formik.touched.type && formik.errors.type}
                 >
                 <FormControl
@@ -125,11 +136,14 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                   <Input
                     type="date"
                     color="black"
+                    required
                     {...formik.getFieldProps("date")}
                     onChange={(e) => {
                       formik.handleChange(e);
                       dispatch(e.target.value);
+                      
                     }}
+                    aria-label="Select reservation date"
                   />
                   <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl>
@@ -138,7 +152,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
               <FormControl
                 isInvalid={formik.touched.time && formik.errors.time}
                 >
-                <FormLabel htmlFor="guests">Choose time</FormLabel>
+                <FormLabel>Choose time</FormLabel>
                 <Flex gap={2} wrap="wrap" >
                   {availableTimes.map((time) => (
                     <Button
@@ -146,6 +160,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                       onClick={() => formik.setFieldValue("time", time)}
                       variant={formik.values.time === time ? "solid" : "outline"}
                       colorScheme="yellow"
+                      aria-label={`Select time ${time}`}
                     >
                       {time}
                     </Button>
@@ -159,6 +174,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                 type="submit"
                 bg="#f4ce14" 
                 width={160}
+                aria-label="Submit reservation"
                 
               >
                 Submit

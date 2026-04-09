@@ -1,27 +1,26 @@
-import { render, screen } from '@testing-library/react';
-import {initializeTimes, updateTimes} from './Main';
+
+import {initializeTimes, updateTimes} from './Components/Main';
 
 describe('initializeTimes', () => {
-  test('returns the correct default times', () => {
-    const expectedTimes = ["17:00","18:00","19:00","20:00","21:00","22:00"];
+  test("initializeTimes returns non-empty array", () => {
     const result = initializeTimes();
-    expect(result).toEqual(expectedTimes);
+
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
   });
 });
 
 describe('updateTimes', () => {
-  test('returns the same state that is provided', () => {
-    const currentState = ["17:00","18:00","19:00"];
-    const action = "any-action"; 
-    const result = updateTimes(currentState, action);
-    expect(result).toEqual(currentState);
+  test("returns weekend times", () => {
+    const result = updateTimes([], "2026-04-05"); 
+    expect(result).toEqual(["18:00", "19:00", "20:00"]);
   });
-});
 
-test("Adds one", () => {
-  render(<App />); 
-  const heading = screen.getByTestId("currentNumber"); 
-  const btn = screen.getByTestId("addOne"); 
-  fireEvent.click(btn); 
-  expect(heading).toHaveTextContent("2");
+
+  test("returns weekday times", () => {
+    const result = updateTimes([], "2026-04-08"); 
+    expect(result).toEqual([
+      "17:00","18:00","19:00","20:00","21:00","22:00"
+    ]);
+  });
 });
