@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <Box>
-      
         <Flex
         maxW="1200px"
         mx="auto"
@@ -13,12 +12,10 @@ const Footer = () => {
         py={10}
         justify="space-between"
         gap={10}
-        
         > 
           <Box>
             <Image src="/logo.jpg" alt="Logo" width="120px" />
           </Box>
-  
           <Box>
             <Heading size="xs">Contact info</Heading>  
             <Text fontSize="xs"> Telephone +37025698578</Text>

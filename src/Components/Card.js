@@ -20,18 +20,14 @@ const Card = ({ title, description, imageSrc }) => {
 
       <VStack align="start" spacing={2} p={4}>
         <Heading size="md" color="black">{title}</Heading>
-        
         <Text fontSize="sm" color="black">{description}</Text>
-
         <HStack spacing={4}>
           <Text color="black" fontWeight="bold" >
             See more
            <FontAwesomeIcon icon={faArrowRight} size="1l"/>
           </Text>
-          
         </HStack>
       </VStack>
-
     </Stack>
   )
 }

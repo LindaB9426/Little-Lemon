@@ -50,7 +50,6 @@ const Order = () => {
        height="600px"  
         bg="#495E57" 
       >
-
         <Box  p={8}  justifyContent="center" >
           <Heading size="xl" textAlign="center" mb={8} color="white">
             Food ordering menu

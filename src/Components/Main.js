@@ -9,7 +9,6 @@ export const initializeTimes = () => {
   return fetchAPI(new Date());
 };
 
-
 export const updateTimes = (state, action) => {
   return fetchAPI(action); 
 };
@@ -22,7 +21,6 @@ const Main = () => {
   );
 
   const navigate = useNavigate();
-
   const submitForm = (formData) => {
   const success = submitAPI(formData);
 
@@ -35,11 +33,8 @@ const Main = () => {
       availableTimes={availableTimes}
       dispatch={dispatch}
       submitForm={submitForm}
-      
     />
   );
 };
-
-
 
 export default Main;

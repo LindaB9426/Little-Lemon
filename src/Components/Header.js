@@ -2,11 +2,7 @@ import React from "react";
 import { Box, HStack, Image} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 
-
-
-
 const Header = () => {
-  
   return (
     <Box
       top={0}
@@ -19,10 +15,6 @@ const Header = () => {
       transitionTimingFunction="ease-in-out"
       backgroundColor="#ffffff"
       zIndex="1000"
-      
-      
-      
-
     >
       <Box bg="white" maxWidth="1400px" margin="0 auto" >
         <HStack
@@ -42,8 +34,6 @@ const Header = () => {
               <Link to="/about">About</Link>
               <Link to="/reservation">Reservation</Link>
               <Link to="/order">Order online</Link>
-              <Link to="/login">Login</Link>
-              
             </HStack>
           </nav>
         </HStack>

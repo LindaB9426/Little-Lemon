@@ -1,24 +1,8 @@
 import React, {useEffect} from "react";
 import { useFormik } from "formik";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Input,
-  Select,
-  VStack,
-  Flex,
-ime,
-} from "@chakra-ui/react";
+import {Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Select, VStack, Flex,} from "@chakra-ui/react";
 import * as Yup from 'yup';
-import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
-
-
-
 
 const Reservation = ({ availableTimes, dispatch, submitForm }) => {
   const { onOpen } = useAlertContext();
@@ -40,8 +24,8 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),   
-      time: Yup.string() .required("Required"),
-      date: Yup.string() .required("Required"),
+      time: Yup.string().required("Required"),
+      date: Yup.string().required("Required"),
       guests: Yup.number()
         .min (1, "Min 1 guest")
         .max (10, "Max 10 guests")
@@ -62,12 +46,16 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
         formik.resetForm();
     },
   });
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("bookings");
+    };
+  }, []);
 
   return (
     <Box
       id="reservation-section"
       minH="auto"
-      
       pt="10px"
       px={8}
       bg="gray.100"
@@ -86,7 +74,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
               <FormControl
                isInvalid={formik.touched.firstName && formik.errors.firstName}
                >
-                <FormLabel htmlFor="firstName">Name</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <Input
                   id="firstName"
                   required
@@ -109,7 +97,7 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
               <FormControl
                 isInvalid={formik.touched.guests && formik.errors.guests}
                 >
-                <FormLabel htmlFor="guests" >Number of guests</FormLabel>
+                <FormLabel>Number of guests</FormLabel>
                 <Select
                   id="guests"
                   name="guests" 
@@ -168,14 +156,11 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
                 </Flex>
                 <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
               </FormControl>
-             
-              
               <Button 
                 type="submit"
                 bg="#f4ce14" 
                 width={160}
                 aria-label="Submit reservation"
-                
               >
                 Submit
               </Button>
@@ -207,7 +192,6 @@ const Reservation = ({ availableTimes, dispatch, submitForm }) => {
             </tbody>
           </table>
         </Box>
-
       </VStack>
     </Box>
   );
