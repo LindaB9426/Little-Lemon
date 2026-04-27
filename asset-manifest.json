@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.js": "/static/js/main.698eebe7.js",
+    "static/media/A.jpg": "/static/media/A.7f44c6d6e341a27d14b3.jpg",
+    "static/media/bruchetta.svg": "/static/media/bruchetta.29ea078fea3d3120ed22402e901b5bbc.svg",
+    "static/media/pasta.jpg": "/static/media/pasta.1b9e7c70c3ee76cfa3c0.jpg",
+    "static/media/greeksalad.jpg": "/static/media/greeksalad.bed423a1fab5b210e347.jpg",
+    "static/media/home.jpg": "/static/media/home.e8abf5b772b6817189aa.jpg",
+    "static/media/lemon.jpg": "/static/media/lemon.aaf33ebd9c738c21e614.jpg",
+    "index.html": "/index.html",
+    "main.698eebe7.js.map": "/static/js/main.698eebe7.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.698eebe7.js"
+  ]
+}
