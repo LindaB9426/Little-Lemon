@@ -2,6 +2,7 @@
   "name": "little-lemon",
   "version": "0.1.0",
   "private": true,
+  "https://lindab9426.github.io/Little-Lemon/",
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",
     "@chakra-ui/utils": "^2.2.5",
